@@ -1,0 +1,25 @@
+pipeline{
+    agent any
+    stages {
+        stage('Clone repo') {
+            steps {
+                git branch: 'main', url: 'https://github.com/StepanTuchin98/spring-petclinic/'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building..'
+                sh 'mvn clean package' 
+
+            }
+        }
+        stage('Clean') {
+            steps {
+                echo 'Start cleaning'
+                cleanWs()
+                echo 'Cleaned'
+            }
+        }
+    }
+}
